@@ -1,8 +1,2 @@
-Welcome to FAH OS.A simple web-based operating system that runs directly in your browser! 
-Features
-Google — Open Google directly from the desktop.
-GitHub — Open GitHub directly from the desktop.
-Calculator — Open an online scientific calculator.
-Custom Wallpaper — I Used my itachi wallpaper as the desktop background.
-
+FAH OS is a web-based operating system created to provide a simple, modern, and easy-to-use desktop experience directly inside a web browser. The project is built using HTML, CSS, and JavaScript, allowing users to interact with a desktop-style interface without installing any software on their computer. FAH OS includes several useful applications that can be accessed directly from the desktop, including Google, GitHub, and Calculator. Each application is represented by an icon, making it easy for users to recognize and open the app they want. The system also includes a custom desktop background, a taskbar, and interactive icons that help make the website feel more like a real operating system. The project is hosted using GitHub Pages, which allows FAH OS to be accessed publicly from anywhere with an internet connection. The main goal of FAH OS is to experiment with web development and explore how HTML, CSS, and JavaScript can be combined to create an operating-system-style environment. The project can also be expanded in the future by adding features such as a Start menu, clock, file manager, settings, built-in applications, draggable windows, themes, animations, and other desktop features. FAH OS is designed as a learning and experimental project and demonstrates how websites can be made interactive and feel like complete software experiences rather than traditional static webpages.
 
