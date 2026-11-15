@@ -1,0 +1,470 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>WebOS Desktop</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    height: 100vh;
+    overflow: hidden;
+    background: #10152c;
+    color: white;
+}
+
+/* Desktop */
+.desktop {
+    width: 100%;
+    height: 100vh;
+    background:
+    linear-gradient(135deg, rgba(13,20,50,.45), rgba(10,10,30,.4)),
+    url("https://images.unsplash.com/photo-1462331940025-496dfbfc7564?w=1920");
+    background-size: cover;
+    background-position: center;
+    position: relative;
+    padding: 20px;
+}
+
+/* Desktop icons */
+.desktop-icons {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+    width: 85px;
+}
+
+.desktop-icon {
+    width: 75px;
+    padding: 10px 3px;
+    text-align: center;
+    cursor: pointer;
+    border-radius: 8px;
+    user-select: none;
+}
+
+.desktop-icon:hover {
+    background: #ffffff30;
+}
+
+.desktop-icon .emoji {
+    font-size: 35px;
+    display: block;
+    margin-bottom: 8px;
+}
+
+.desktop-icon span:last-child {
+    font-size: 12px;
+}
+
+/* Windows */
+.window {
+    position: absolute;
+    top: 100px;
+    left: 180px;
+    width: 750px;
+    height: 480px;
+    min-width: 300px;
+    min-height: 200px;
+    background: #171a2b;
+    border: 1px solid #ffffff35;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 15px 50px #0009;
+    display: flex;
+    flex-direction: column;
+}
+
+.titlebar {
+    height: 42px;
+    flex-shrink: 0;
+    background: #24283d;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 12px;
+    cursor: grab;
+    user-select: none;
+}
+
+.titlebar:active {
+    cursor: grabbing;
+}
+
+.window-title {
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.controls {
+    display: flex;
+    gap: 8px;
+}
+
+.controls button {
+    width: 25px;
+    height: 25px;
+    border: none;
+    border-radius: 50%;
+    color: white;
+    cursor: pointer;
+    background: #ffffff30;
+}
+
+.controls .close {
+    background: #ff4d5e;
+}
+
+.controls .maximize {
+    background: #ffc34d;
+}
+
+.controls .minimize {
+    background: #39c978;
+}
+
+.window-content {
+    flex: 1;
+    min-height: 0;
+    background: #10121e;
+}
+
+.window-content iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+    background: white;
+}
+
+/* Taskbar */
+.taskbar {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 55px;
+    background: #15182bdb;
+    backdrop-filter: blur(20px);
+    display: flex;
+    align-items: center;
+    padding: 0 15px;
+    gap: 15px;
+    z-index: 9999;
+}
+
+.start-button {
+    font-size: 24px;
+    cursor: pointer;
+    padding: 8px 12px;
+    border-radius: 8px;
+}
+
+.start-button:hover {
+    background: #ffffff25;
+}
+
+.task-apps {
+    display: flex;
+    gap: 8px;
+    flex: 1;
+}
+
+.task-apps button {
+    background: #ffffff18;
+    border: none;
+    color: white;
+    padding: 9px 14px;
+    border-radius: 7px;
+    cursor: pointer;
+}
+
+.task-apps button:hover {
+    background: #ffffff35;
+}
+
+.clock {
+    font-size: 13px;
+}
+
+/* Start menu */
+.start-menu {
+    position: absolute;
+    bottom: 65px;
+    left: 12px;
+    width: 280px;
+    padding: 20px;
+    background: #20243af2;
+    backdrop-filter: blur(20px);
+    border: 1px solid #ffffff30;
+    border-radius: 15px;
+    display: none;
+    z-index: 10000;
+}
+
+.start-menu h3 {
+    margin-bottom: 15px;
+}
+
+.start-menu button {
+    display: block;
+    width: 100%;
+    padding: 14px;
+    margin: 6px 0;
+    background: #ffffff15;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    text-align: left;
+    cursor: pointer;
+}
+
+.start-menu button:hover {
+    background: #ffffff35;
+}
+
+@media(max-width: 700px) {
+    .window {
+        left: 5%;
+        width: 90%;
+        height: 65%;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="desktop">
+
+    <!-- Desktop icons -->
+    <div class="desktop-icons">
+
+        <div class="desktop-icon" onclick="openApp('youtube')">
+            <span class="emoji">▶️</span>
+            <span>YouTube</span>
+        </div>
+
+        <div class="desktop-icon" onclick="openApp('github')">
+            <span class="emoji">🐙</span>
+            <span>GitHub</span>
+        </div>
+
+    </div>
+
+    <!-- Windows are created using JavaScript -->
+
+    <!-- Start menu -->
+    <div class="start-menu" id="startMenu">
+        <h3>🚀 WebOS</h3>
+        <button onclick="openApp('youtube')">▶ YouTube</button>
+        <button onclick="openApp('github')">🐙 GitHub</button>
+    </div>
+
+    <!-- Taskbar -->
+    <div class="taskbar">
+
+        <div class="start-button" onclick="toggleStart()">
+            🪟
+        </div>
+
+        <div class="task-apps" id="taskApps"></div>
+
+        <div class="clock" id="clock"></div>
+
+    </div>
+
+</div>
+
+<script>
+let windows = {};
+let zIndex = 10;
+let count = 0;
+
+const apps = {
+    youtube: {
+        title: "YouTube",
+        icon: "▶️",
+        url: "https://www.youtube.com/embed/jfKfPfyJRdk"
+    },
+    github: {
+        title: "GitHub",
+        icon: "🐙",
+        url: "https://github.com"
+    }
+};
+
+// Open app
+function openApp(app) {
+
+    if (windows[app]) {
+        const win = windows[app];
+        win.style.display = "flex";
+        win.style.zIndex = ++zIndex;
+        return;
+    }
+
+    const data = apps[app];
+
+    const win = document.createElement("div");
+    win.className = "window";
+    win.style.left = (130 + count * 35) + "px";
+    win.style.top = (80 + count * 25) + "px";
+    win.style.zIndex = ++zIndex;
+
+    win.innerHTML = `
+        <div class="titlebar">
+            <div class="window-title">
+                ${data.icon} ${data.title}
+            </div>
+
+            <div class="controls">
+                <button class="minimize" title="Minimize">−</button>
+                <button class="maximize" title="Maximize">□</button>
+                <button class="close" title="Close">×</button>
+            </div>
+        </div>
+
+        <div class="window-content">
+            <iframe
+                src="${data.url}"
+                allow="autoplay; encrypted-media; fullscreen"
+                referrerpolicy="strict-origin-when-cross-origin">
+            </iframe>
+        </div>
+    `;
+
+    document.querySelector(".desktop").appendChild(win);
+
+    windows[app] = win;
+    count++;
+
+    // Bring window to front
+    win.addEventListener("mousedown", () => {
+        win.style.zIndex = ++zIndex;
+    });
+
+    // Minimize
+    win.querySelector(".minimize").onclick = () => {
+        win.style.display = "none";
+    };
+
+    // Maximize / restore
+    let maximized = false;
+    let oldPosition = {};
+
+    win.querySelector(".maximize").onclick = () => {
+
+        if (!maximized) {
+            oldPosition = {
+                left: win.style.left,
+                top: win.style.top,
+                width: win.style.width,
+                height: win.style.height
+            };
+
+            win.style.left = "0";
+            win.style.top = "0";
+            win.style.width = "100%";
+            win.style.height = "calc(100% - 55px)";
+        } else {
+            Object.assign(win.style, oldPosition);
+        }
+
+        maximized = !maximized;
+    };
+
+    // Close
+    win.querySelector(".close").onclick = () => {
+        win.remove();
+        delete windows[app];
+        document.getElementById("task-" + app)?.remove();
+    };
+
+    // Taskbar app button
+    const taskButton = document.createElement("button");
+    taskButton.id = "task-" + app;
+    taskButton.textContent = data.icon + " " + data.title;
+
+    taskButton.onclick = () => {
+        win.style.display = "flex";
+        win.style.zIndex = ++zIndex;
+    };
+
+    document.getElementById("taskApps").appendChild(taskButton);
+
+    // Drag functionality
+    makeDraggable(win, win.querySelector(".titlebar"));
+}
+
+// Drag window
+function makeDraggable(win, bar) {
+
+    let offsetX = 0;
+    let offsetY = 0;
+    let dragging = false;
+
+    bar.addEventListener("pointerdown", (e) => {
+
+        if (e.target.tagName === "BUTTON") return;
+
+        if (win.style.width === "100%") return;
+
+        dragging = true;
+
+        offsetX = e.clientX - win.offsetLeft;
+        offsetY = e.clientY - win.offsetTop;
+
+        bar.setPointerCapture(e.pointerId);
+    });
+
+    bar.addEventListener("pointermove", (e) => {
+
+        if (!dragging) return;
+
+        win.style.left = (e.clientX - offsetX) + "px";
+        win.style.top = Math.max(
+            0, e.clientY - offsetY
+        ) + "px";
+    });
+
+    bar.addEventListener("pointerup", () => {
+        dragging = false;
+    });
+
+    bar.addEventListener("pointercancel", () => {
+        dragging = false;
+    });
+}
+
+// Start menu
+function toggleStart() {
+    const menu = document.getElementById("startMenu");
+
+    menu.style.display =
+        menu.style.display === "block" ? "none" : "block";
+}
+
+// Clock
+function updateClock() {
+    document.getElementById("clock").textContent =
+        new Date().toLocaleTimeString([], {
+            hour: "2-digit",
+            minute: "2-digit"
+        });
+}
+
+setInterval(updateClock, 1000);
+updateClock();
+
+</script>
+
+</body>
+</html>
